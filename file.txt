@@ -1,0 +1,71 @@
+mysql> source test.sql
+ERROR: 
+Failed to open file 'test.sql', error: 2
+mysql> source test.sql
+ERROR: 
+Failed to open file 'test.sql', error: 2
+mysql> source test.sql
+ERROR: 
+Failed to open file 'test.sql', error: 2
+mysql> source sql\test.sql
++----------+
+| count(*) |
++----------+
+|     3503 |
++----------+
+1 row in set (0.05 sec)
+
++----------+
+| count(*) |
++----------+
+|      275 |
++----------+
+1 row in set (0.01 sec)
+
+mysql> source sql\test.sql
++----------+
+| count(*) |
++----------+
+|     3503 |
++----------+
+1 row in set (0.00 sec)
+
++----------+
+| count(*) |
++----------+
+|      275 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select * from Album limit 5;
++---------+---------------------------------------+----------+
+| AlbumId | Title                                 | ArtistId |
++---------+---------------------------------------+----------+
+|       1 | For Those About To Rock We Salute You |        1 |
+|       2 | Balls to the Wall                     |        2 |
+|       3 | Restless and Wild                     |        2 |
+|       4 | Let There Be Rock                     |        1 |
+|       5 | Big Ones                              |        3 |
++---------+---------------------------------------+----------+
+5 rows in set (0.01 sec)
+
+mysql> select Title, name from Album
+    -> join Artist on Album.ArtistId
+    -> limt 5;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'limt 5' at line 3
+mysql> limit 5;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'limit 5' at line 1
+mysql> select Title, name from Album
+    -> join Artist on Album.ArtistId
+    -> limit 5;
++---------------------------------------+-------------------+
+| Title                                 | name              |
++---------------------------------------+-------------------+
+| For Those About To Rock We Salute You | AC/DC             |
+| For Those About To Rock We Salute You | Accept            |
+| For Those About To Rock We Salute You | Aerosmith         |
+| For Those About To Rock We Salute You | Alanis Morissette |
+| For Those About To Rock We Salute You | Alice In Chains   |
++---------------------------------------+-------------------+
+5 rows in set (0.00 sec)
+
